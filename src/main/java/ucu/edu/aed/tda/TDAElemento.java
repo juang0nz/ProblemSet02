@@ -55,7 +55,7 @@ public interface TDAElemento <T>{
      * Agrega un nuevo elemento al árbol
      * Si el nuevoDato existe, no se agrega
      */
-    boolean insertar(Comparable<T> nuevoDato);
+    boolean insertar(T nuevoDato);
 
     /**
      * {@snippet :
