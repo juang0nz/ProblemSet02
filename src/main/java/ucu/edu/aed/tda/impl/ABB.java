@@ -6,7 +6,7 @@ import ucu.edu.aed.tda.TDAElemento;
 
 public class ABB<T> implements TDAArbolBinario<T> {
 
-    private TDAElemento<T> raiz;
+    public TDAElemento<T> raiz;
 
     public ABB() {
         this.raiz = null;

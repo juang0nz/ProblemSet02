@@ -6,137 +6,138 @@ import ucu.edu.aed.tda.TDAElemento;
 
 public class ElementoABB<T> implements TDAElemento<T> {
 
-protected T dato;
-protected TDAElemento<T> hijoIzquierdo;
-protected TDAElemento<T> hijoDerecho;
+    protected T dato;
+    protected TDAElemento<T> hijoIzquierdo;
+    protected TDAElemento<T> hijoDerecho;
 
-public ElementoABB(T dato) {
-    this.dato = dato;
-    this.hijoIzquierdo = null;
-    this.hijoDerecho = null;
-}
-
-@Override
-public void setHijoIzquierdo(TDAElemento<T> hijoIzquierdo) {
-    this.hijoIzquierdo = hijoIzquierdo;
-}
-
-@Override
-public void setHijoDerecho(TDAElemento<T> hijoDerecho) {
-    this.hijoDerecho = hijoDerecho;
-}
-
-@Override
-public TDAElemento<T> getHijoIzquierdo() {
-    return hijoIzquierdo;
-}
-
-@Override
-public TDAElemento<T> getHijoDerecho() {
-    return hijoDerecho;
-}
-
-@Override
-public T getDato() {
-    return dato;
-}
-
-@Override
-public void setDato(T dato) {
-    this.dato = dato;
-}
-
-/**
-     * Busca un nodo por un criterio de búsqueda.
-     * Si no se encuentra, retorna nulo.
-     */
-@Override
-public TDAElemento<T> buscar(Comparable<T> criterioBusqueda) {
-
-    TDAElemento<T> resultado = null;
-
-    if (criterioBusqueda.compareTo(this.dato) == 0) {
-
-        resultado = this;
-
-    } else {
-
-        if (criterioBusqueda.compareTo(this.dato) < 0) {
-
-            // Lo que buscamos está a la izquierda
-            if (hijoIzquierdo != null) {
-                resultado = hijoIzquierdo.buscar(criterioBusqueda);
-            }
-
-        } else {
-
-            // Lo que buscamos está a la derecha
-            if (hijoDerecho != null) {
-                resultado = hijoDerecho.buscar(criterioBusqueda);
-            }
-        }
+    public ElementoABB(T dato) {
+        this.dato = dato;
+        this.hijoIzquierdo = null;
+        this.hijoDerecho = null;
     }
 
-    return resultado;
-}
-/*ELMINAR EL NODO Y LO DEVUELVE */
-@Override
-public TDAElemento<T> eliminar(Comparable<T> criterioBusqueda) {
-
-    int comparacion = criterioBusqueda.compareTo(this.dato);
-
-    if (comparacion < 0) {
-
-        if (hijoIzquierdo != null) {
-            hijoIzquierdo = hijoIzquierdo.eliminar(criterioBusqueda);
-        }
-
-        return this;
-
-    } else if (comparacion > 0) {
-
-        if (hijoDerecho != null) {
-            hijoDerecho = hijoDerecho.eliminar(criterioBusqueda);
-        }
-
-        return this;
+    @Override
+    public void setHijoIzquierdo(TDAElemento<T> hijoIzquierdo) {
+        this.hijoIzquierdo = hijoIzquierdo;
     }
 
-    return quitarNodo();
-}
-
-private TDAElemento<T> quitarNodo() {
-
-    // Caso 1: no tiene hijo izquierdo
-    if (hijoIzquierdo == null) {
-        return hijoDerecho;
+    @Override
+    public void setHijoDerecho(TDAElemento<T> hijoDerecho) {
+        this.hijoDerecho = hijoDerecho;
     }
 
-    // Caso 2: no tiene hijo derecho
-    if (hijoDerecho == null) {
+    @Override
+    public TDAElemento<T> getHijoIzquierdo() {
         return hijoIzquierdo;
     }
 
-    // Caso 3: tiene los dos hijos
-    TDAElemento<T> hijo = hijoIzquierdo;
-    TDAElemento<T> padre = this;
-
-    while (hijo.getHijoDerecho() != null) {
-        padre = hijo;
-        hijo = hijo.getHijoDerecho();
+    @Override
+    public TDAElemento<T> getHijoDerecho() {
+        return hijoDerecho;
     }
 
-    if (padre != this) {
-        padre.setHijoDerecho(hijo.getHijoIzquierdo());
-        hijo.setHijoIzquierdo(hijoIzquierdo);
+    @Override
+    public T getDato() {
+        return dato;
     }
 
-    hijo.setHijoDerecho(hijoDerecho);
+    @Override
+    public void setDato(T dato) {
+        this.dato = dato;
+    }
 
-    return hijo;
-}
+    /**
+     * Busca un nodo por un criterio de búsqueda.
+     * Si no se encuentra, retorna nulo.
+     */
+    @Override
+    public TDAElemento<T> buscar(Comparable<T> criterioBusqueda) {
 
-@Override
+        TDAElemento<T> resultado = null;
+
+        if (criterioBusqueda.compareTo(this.dato) == 0) {
+
+            resultado = this;
+
+        } else {
+
+            if (criterioBusqueda.compareTo(this.dato) < 0) {
+
+                // Lo que buscamos está a la izquierda
+                if (hijoIzquierdo != null) {
+                    resultado = hijoIzquierdo.buscar(criterioBusqueda);
+                }
+
+            } else {
+
+                // Lo que buscamos está a la derecha
+                if (hijoDerecho != null) {
+                    resultado = hijoDerecho.buscar(criterioBusqueda);
+                }
+            }
+        }
+
+        return resultado;
+    }
+
+    /* ELMINAR EL NODO Y LO DEVUELVE */
+    @Override
+    public TDAElemento<T> eliminar(Comparable<T> criterioBusqueda) {
+
+        int comparacion = criterioBusqueda.compareTo(this.dato);
+
+        if (comparacion < 0) {
+
+            if (hijoIzquierdo != null) {
+                hijoIzquierdo = hijoIzquierdo.eliminar(criterioBusqueda);
+            }
+
+            return this;
+
+        } else if (comparacion > 0) {
+
+            if (hijoDerecho != null) {
+                hijoDerecho = hijoDerecho.eliminar(criterioBusqueda);
+            }
+
+            return this;
+        }
+
+        return quitarNodo();
+    }
+
+    private TDAElemento<T> quitarNodo() {
+
+        // Caso 1: no tiene hijo izquierdo
+        if (hijoIzquierdo == null) {
+            return hijoDerecho;
+        }
+
+        // Caso 2: no tiene hijo derecho
+        if (hijoDerecho == null) {
+            return hijoIzquierdo;
+        }
+
+        // Caso 3: tiene los dos hijos
+        TDAElemento<T> hijo = hijoIzquierdo;
+        TDAElemento<T> padre = this;
+
+        while (hijo.getHijoDerecho() != null) {
+            padre = hijo;
+            hijo = hijo.getHijoDerecho();
+        }
+
+        if (padre != this) {
+            padre.setHijoDerecho(hijo.getHijoIzquierdo());
+            hijo.setHijoIzquierdo(hijoIzquierdo);
+        }
+
+        hijo.setHijoDerecho(hijoDerecho);
+
+        return hijo;
+    }
+
+    @Override
     /**
      * Agrega un nuevo elemento al árbol
      * Si el nuevoDato existe, no se agrega
@@ -165,55 +166,55 @@ private TDAElemento<T> quitarNodo() {
         }
     }
 
-// recorrido in-order del árbol
-@Override
-public void inOrder(Consumer<TDAElemento<T>> consumidor) {
-    if (hijoIzquierdo != null) {
-        hijoIzquierdo.inOrder(consumidor);
+    // recorrido in-order del árbol
+    @Override
+    public void inOrder(Consumer<TDAElemento<T>> consumidor) {
+        if (hijoIzquierdo != null) {
+            hijoIzquierdo.inOrder(consumidor);
+        }
+        consumidor.accept(this);
+        if (hijoDerecho != null) {
+            hijoDerecho.inOrder(consumidor);
+        }
     }
-    consumidor.accept(this);
-    if (hijoDerecho != null) {
-        hijoDerecho.inOrder(consumidor);
-    }
-}
 
-//recorrido pre-order del árbol
-@Override
-public void preOrder(Consumer<TDAElemento<T>> consumidor) {
-    consumidor.accept(this);
-    if (hijoIzquierdo != null) {
-        hijoIzquierdo.preOrder(consumidor);
+    // recorrido pre-order del árbol
+    @Override
+    public void preOrder(Consumer<TDAElemento<T>> consumidor) {
+        consumidor.accept(this);
+        if (hijoIzquierdo != null) {
+            hijoIzquierdo.preOrder(consumidor);
+        }
+        if (hijoDerecho != null) {
+            hijoDerecho.preOrder(consumidor);
+        }
     }
-    if (hijoDerecho != null) {
-        hijoDerecho.preOrder(consumidor);
-    }
-}
-// recorrido post-order del árbol
-@Override
-public void postOrder(Consumer<TDAElemento<T>> consumidor) {
-    if (hijoIzquierdo != null) {
-        hijoIzquierdo.postOrder(consumidor);
-    }
-    if (hijoDerecho != null) {
-        hijoDerecho.postOrder(consumidor);
-    }
-    consumidor.accept(this);
-}
 
-@Override
+    // recorrido post-order del árbol
+    @Override
+    public void postOrder(Consumer<TDAElemento<T>> consumidor) {
+        if (hijoIzquierdo != null) {
+            hijoIzquierdo.postOrder(consumidor);
+        }
+        if (hijoDerecho != null) {
+            hijoDerecho.postOrder(consumidor);
+        }
+        consumidor.accept(this);
+    }
+
+    @Override
     /**
      * retornar true si el nodo es hoja
      */
-public boolean esHoja() {
+    public boolean esHoja() {
         return hijoIzquierdo == null && hijoDerecho == null;
     }
-
 
     /**
      * retorna la cantidad de nodos que son hijas
      */
-@Override
-public int cantidadHojas() {
+    @Override
+    public int cantidadHojas() {
         int contador = 0;
         if (hijoIzquierdo != null) {
             contador += hijoIzquierdo.cantidadHojas();
@@ -227,10 +228,10 @@ public int cantidadHojas() {
         return contador;
     }
 
-@Override    /**
-     * retorna la cantidad de nodos que no son hojas
-     */
-public int cantidadNodosInternos() {
+    @Override /**
+               * retorna la cantidad de nodos que no son hojas
+               */
+    public int cantidadNodosInternos() {
         int contador = 0;
         // Contar los nodos internos de los subárboles izquierdo y derecho
         if (hijoIzquierdo != null) {
@@ -263,7 +264,7 @@ public int cantidadNodosInternos() {
         return contador;
     }
 
-@Override
+    @Override
     /**
      * retorna la altura de este nodo
      */
@@ -271,7 +272,7 @@ public int cantidadNodosInternos() {
         // Calcular la altura de los subárboles izquierdo y derecho
         int alturaIzquierda = (hijoIzquierdo != null) ? hijoIzquierdo.altura() : 0;
         int alturaDerecha = (hijoDerecho != null) ? hijoDerecho.altura() : 0;
-        return 1 + Math.max(alturaIzquierda, alturaDerecha); //este es el que suma la vuelta las dos alturas.
+        return 1 + Math.max(alturaIzquierda, alturaDerecha); // este es el que suma la vuelta las dos alturas.
     }
 
     @Override
@@ -279,7 +280,7 @@ public int cantidadNodosInternos() {
      * retornar el nivel relativo del nodo que coincide con el criterio de búsqueda
      * si no se encuentra, retorna -1
      */
-    public int obtenerNivel(Comparable<T> criterioBusqueda){
+    public int obtenerNivel(Comparable<T> criterioBusqueda) {
         if (criterioBusqueda.compareTo((T) this.dato) == 0) {
             return 0;
         }
@@ -293,26 +294,3 @@ public int cantidadNodosInternos() {
         return (nivel == -1) ? -1 : nivel + 1;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
