@@ -9,13 +9,13 @@ public class ElementImpl<T extends Comparable<T>> implements TDAElemento<T> {
     private TDAElemento<T> hijoIzq;
     private TDAElemento<T> hijoDer;
     
-    
+    @Override
     public ElementImpl(T DatoElemento){
         this.dato=DatoElemento;
         hijoDer=null;
         hijoIzq=null;
     }
-
+    @Override
     public void setHijoIzquierdo(TDAElemento<T> hijoIzquierdo){
         this.hijoIzq = hijoIzquierdo;
         
@@ -24,6 +24,7 @@ public class ElementImpl<T extends Comparable<T>> implements TDAElemento<T> {
     /**
      * Asigna el nodo derecho del nodo actual. Puede ser nulo.
      */
+    @Override
     public void setHijoDerecho(TDAElemento<T> hijoDerecho){
     this.hijoDer = hijoDerecho;
         
@@ -32,6 +33,7 @@ public class ElementImpl<T extends Comparable<T>> implements TDAElemento<T> {
     /**
      * Devuelve el hijo derecho del nodo actual. El valor es nulo si no tiene hijo derecho.
      */
+    @Override
     public TDAElemento<T> getHijoIzquierdo(){
         return hijoIzq;
     }
@@ -39,6 +41,7 @@ public class ElementImpl<T extends Comparable<T>> implements TDAElemento<T> {
     /**
      * Devuelve el hijo izquierdo del nodo actual. El valor es nulo si no tiene hijo izquierdo.
      */
+    @Override
     public TDAElemento<T> getHijoDerecho(){
          return hijoDer;
     }
@@ -46,6 +49,7 @@ public class ElementImpl<T extends Comparable<T>> implements TDAElemento<T> {
     /**
      * Actualiza el dato del nodo actual.
      */
+    @Override
     public void setDato(T datoNuevo){
         this.dato=datoNuevo;
     }
@@ -53,6 +57,7 @@ public class ElementImpl<T extends Comparable<T>> implements TDAElemento<T> {
     /**
      * devuelve el dato del nodo actual.
      */
+    @Override
     public T getDato(){
         return dato;
     }
@@ -60,6 +65,7 @@ public class ElementImpl<T extends Comparable<T>> implements TDAElemento<T> {
      * Busca un nodo por un criterio de búsqueda.
      * Si no se encuentra, retorna nulo.
      */
+    @Override
     public TDAElemento<T> buscar(Comparable<T> criterioBusqueda){
         TDAElemento<T> resultado=null;
         if (criterioBusqueda(this.dato)==0){
@@ -85,6 +91,7 @@ public class ElementImpl<T extends Comparable<T>> implements TDAElemento<T> {
      * Elimina un nodo del árbol según el criterio de búsqueda.
      * Si se encuentra, se retorna el nodo borrado. En otro caso retornar null.
      */
+    @Override
     public TDAElemento<T> eliminar(Comparable<T> criterioBusqueda){
         if(criterioBusqueda(this.dato)<0){
             if (this.hijoIzq(criterioBusqueda)){
@@ -101,6 +108,7 @@ public class ElementImpl<T extends Comparable<T>> implements TDAElemento<T> {
         return quitarNodo();
         }
     }
+    
     private TDAElemento<T> quitarNodo(){
         if (this.hijoIzq == null){
             return this.hijoDer;
@@ -130,6 +138,7 @@ public class ElementImpl<T extends Comparable<T>> implements TDAElemento<T> {
      * Agrega un nuevo elemento al árbol
      * Si el nuevoDato existe, no se agrega
      */
+    @Override
     public boolean insertar(T nuevoDato){
         if (nuevoDato.compareTo(this.dato)>0){
             if (hijoDer=null){
@@ -161,6 +170,7 @@ public class ElementImpl<T extends Comparable<T>> implements TDAElemento<T> {
      * });
      *}
      */
+    @Override
     public void inOrder(Consumer<TDAElemento<T>> consumidor){
             if(this.hijoIzq !=null) this.hijoIzq.inOrden(consumidor);
             consumer.accept(this);
@@ -177,6 +187,7 @@ public class ElementImpl<T extends Comparable<T>> implements TDAElemento<T> {
      * });
      *}
      */
+    @Override
     public void preOrder(Consumer<TDAElemento<T>> consumidor){
         consumer.accept(this);
         if(this.hijoIzq !=null) this.hijoIzq.inOrden(consumidor);
@@ -193,6 +204,7 @@ public class ElementImpl<T extends Comparable<T>> implements TDAElemento<T> {
      * });
      *}
      */
+    @Override
     public void postOrder(Consumer<TDAElemento<T>> consumidor){
     if(this.hijoIzq !=null) this.hijoIzq.inOrden(consumidor);
     if (this.hijoDer !=null) this.hijoDer.inOrder(consumidor);
@@ -202,6 +214,7 @@ public class ElementImpl<T extends Comparable<T>> implements TDAElemento<T> {
     /**
      * retornar true si el nodo es hoja
      */
+    @Override
     public boolean esHoja(){
         if (hijoIzq==null && hijoDer==null){
             return true;
@@ -212,6 +225,7 @@ public class ElementImpl<T extends Comparable<T>> implements TDAElemento<T> {
     /**
      * retorna la cantidad de nodos que son hijas
      */
+    @Override
     public int cantidadHojas(){
     // si no tiene hijos, es una hoja
         if (this.hijoIzq == null && this.hijoDer == null){
@@ -237,7 +251,8 @@ public class ElementImpl<T extends Comparable<T>> implements TDAElemento<T> {
     /**
      * retorna la cantidad de nodos que no son hojas
      */
-public int cantidadNodosInternos(){
+    @Override
+    public int cantidadNodosInternos(){
     // si es hoja, no es interno
         if (this.hijoIzq == null && this.hijoDer == null){
             return 0;
@@ -261,7 +276,8 @@ public int cantidadNodosInternos(){
     /**
      * retorna la cantidad de nodos que los compone
      */
-public int cantidadNodos(){
+    @Override
+    public int cantidadNodos(){
         int contadorIzq = 0;
         int contadorDer = 0;
 
@@ -280,7 +296,8 @@ public int cantidadNodos(){
     /**
      * retorna la altura de este nodo
      */
-public int altura(){
+    @Override
+    public int altura(){
     // hoja: altura 1
     if (this.hijoIzq == null && this.hijoDer == null){
         return 1;
@@ -305,7 +322,8 @@ public int altura(){
      * retornar el nivel relativo del nodo que coincide con el criterio de búsqueda
      * si no se encuentra, retorna -1
      */
-public int obtenerNivel(Comparable<T> criterioBusqueda){
+    @Override
+    public int obtenerNivel(Comparable<T> criterioBusqueda){
     // este nodo es el buscado
         if (criterioBusqueda.compareTo(dato) == 0){
             return 0;

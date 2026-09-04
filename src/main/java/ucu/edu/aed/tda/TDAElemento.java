@@ -1,13 +1,12 @@
 package ucu.edu.aed.tda;
 
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 /**
  * Modela un nodo del árbol binario.
  * La implementación de esta estructura debe ser recursiva.
  */
-public interface TDAElemento <T>{
+public interface TDAElemento<T> {
 
     /**
      * Asigna el nodo izquierdo del nodo actual. Puede ser nulo.
@@ -20,12 +19,14 @@ public interface TDAElemento <T>{
     void setHijoDerecho(TDAElemento<T> hijoDerecho);
 
     /**
-     * Devuelve el hijo derecho del nodo actual. El valor es nulo si no tiene hijo derecho.
+     * Devuelve el hijo derecho del nodo actual. El valor es nulo si no tiene hijo
+     * derecho.
      */
     TDAElemento<T> getHijoIzquierdo();
 
     /**
-     * Devuelve el hijo izquierdo del nodo actual. El valor es nulo si no tiene hijo izquierdo.
+     * Devuelve el hijo izquierdo del nodo actual. El valor es nulo si no tiene hijo
+     * izquierdo.
      */
     TDAElemento<T> getHijoDerecho();
 
@@ -61,10 +62,10 @@ public interface TDAElemento <T>{
      * {@snippet :
      * // ejemplo de uso
      * elemento.inOrder(dato ->{
-     *     // procesar dato
-     *     // esta función se llama tantas veces como nodos halla en el árbol
+     * // procesar dato
+     * // esta función se llama tantas veces como nodos halla en el árbol
      * });
-     *}
+     * }
      */
     void inOrder(Consumer<TDAElemento<T>> consumidor);
 
@@ -72,10 +73,10 @@ public interface TDAElemento <T>{
      * {@snippet :
      * // ejemplo de uso
      * elemento.preOrder(dato ->{
-     *     // procesar dato
-     *     // esta función se llama tantas veces como nodos halla en el árbol
+     * // procesar dato
+     * // esta función se llama tantas veces como nodos halla en el árbol
      * });
-     *}
+     * }
      */
     void preOrder(Consumer<TDAElemento<T>> consumidor);
 
@@ -83,10 +84,10 @@ public interface TDAElemento <T>{
      * {@snippet :
      * // ejemplo de uso
      * elemento.postOrder(dato ->{
-     *     // procesar dato
-     *     // esta función se llama tantas veces como nodos halla en el árbol
+     * // procesar dato
+     * // esta función se llama tantas veces como nodos halla en el árbol
      * });
-     *}
+     * }
      */
     void postOrder(Consumer<TDAElemento<T>> consumidor);
 
