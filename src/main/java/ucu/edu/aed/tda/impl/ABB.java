@@ -128,5 +128,16 @@ public class ABB<T> implements TDAArbolBinario<T> {
 
         return raiz.cantidadNodosInternos();
     }
+    public int altura() {
+        if (raiz == null) {
+            return 0;
+        }
+
+        return raiz.altura();
+    }
+    
+    public int ObtenerTamanio() {
+        return cantidadNodos();
+    }
 
 }

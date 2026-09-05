@@ -2,7 +2,7 @@ package ucu.edu.aed.tda.Ejercicios;
 
 public class Ejercicio4 {
 
-    /*Definir pre y post - condiciones de un algoritmo para obtener la altura de un árbol binario
+    /*Definir pre y post - condiciones de un algoritmo para obtener la ALTURA de un árbol binario
 de búsqueda */
 
 /*
@@ -79,4 +79,66 @@ SINO
 FIN SI
 Y verificar que el árbol no ha sido modificado
 */
+/*definir pre y post condicions de un algoritmo para obtener el tamanio de un abb */
+/*
+Precondiciones:
+ABB no nulo
+puede ser vacio o no
+cada nodo tiene como máximo dos hijos
+*/
+/*
+Postcondiciones:
+se obtiene el tamaño del árbol binario de búsqueda
+no se modifica el árbol existente
+*/
+/*2. A partir de las post-condiciones definidas, escribir (en lenguaje natural) los casos de prueba
+pertinentes:
+Casos de prueba que podemos hacer:
+Árbol vacío y que devuelva 0
+Con un solo nodo y que me de tamaño 1
+Podemos cargar todo en un subárbol izquierdo o derecho y que me devuelva la cantidad de nodos.
+Podemos calcular el tamaño normalmente y luego ver que no modifica el árbol.
+ */
+/*Diseñar en seudocódigo la prueba del algoritmo para obtener el tamaño de un árbol binario
+de búsqueda.
+prueba arbol vacio:
+Crear árbol vacío
+tamanioObtenido ← tamanio(arbol)
+
+SI tamanioObtenido = 0 ENTONCES
+    Mostrar "Prueba correcta"
+SINO
+    Mostrar "Prueba incorrecta"
+FIN SI
+/*prueba arbol con un solo nodo:
+Crear árbol con un solo nodo
+tamanioObtenido ← tamanio(arbol)
+
+SI tamanioObtenido = 1 ENTONCES
+    Mostrar "Prueba correcta"
+SINO
+    Mostrar "Prueba incorrecta"
+FIN SI
+*/
+/*prueba arbol con todos los nodos en el subárbol izquierdo:
+Crear árbol con todos los nodos en el subárbol izquierdo
+tamanioObtenido ← tamanio(arbol)
+
+SI tamanioObtenido = cantidadDeNodos ENTONCES
+    Mostrar "Prueba correcta"
+SINO
+    Mostrar "Prueba incorrecta"
+FIN SI
+
+/*prueba arbol con todos los nodos en el subárbol derecho:
+Crear árbol con todos los nodos en el subárbol derecho
+tamanioObtenido ← tamanio(arbol)
+
+SI tamanioObtenido = cantidadDeNodos ENTONCES
+    Mostrar "Prueba correcta"
+SINO
+    Mostrar "Prueba incorrecta"
+FIN SI
+*/
+
 }

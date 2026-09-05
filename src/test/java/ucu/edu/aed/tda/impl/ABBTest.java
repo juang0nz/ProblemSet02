@@ -20,6 +20,9 @@ public class ABBTest extends TestCase {
         assertEquals(0, arbol.cantidadNodos());
         assertEquals(0, arbol.cantidadHojas());
         assertEquals(0, arbol.cantidadNodosInternos());
+        //ejercicio4  A y B
+        assertEquals(0, arbol.altura());
+        assertEquals(0, arbol.ObtenerTamanio());
     }
 
     public void testInsertarBuscarYNoPermitirDuplicados() {
@@ -132,5 +135,35 @@ public class ABBTest extends TestCase {
             }
         });
         return resultado;
+    }
+    //test con un nodo solo:
+    public void testObtenerTamanio() {
+        ABB<Integer> arbol = new ABB<Integer>();
+        arbol.insertar(5);
+        assertEquals(1, arbol.ObtenerTamanio());
+    }
+    //test altura del árbol con un nodo solo
+    public void testAltura() {
+        ABB<Integer> arbol = new ABB<Integer>();
+        arbol.insertar(5);
+        assertEquals(1, arbol.altura());
+    }
+    //Podemos cargar todo en un subárbol izquierdo o derecho y que me devuelva la cantidad de nodos.
+    public void testCantidadNodosSubarbolIzquierdo() {
+        ABB<Integer> arbol = new ABB<>();
+        arbol.insertar(10);
+        arbol.insertar(5);
+        arbol.insertar(3);
+        arbol.insertar(7);
+        assertEquals(4, arbol.cantidadNodos());
+    }
+
+    public void testCantidadNodosSubarbolDerecho() {
+        ABB<Integer> arbol = new ABB<>();
+        arbol.insertar(10);
+        arbol.insertar(15);
+        arbol.insertar(12);
+        arbol.insertar(18);
+        assertEquals(4, arbol.cantidadNodos());
     }
 }

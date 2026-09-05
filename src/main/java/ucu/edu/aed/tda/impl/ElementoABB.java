@@ -293,4 +293,8 @@ public class ElementoABB<T> implements TDAElemento<T> {
         }
         return (nivel == -1) ? -1 : nivel + 1;
     }
+    
+    public int ObtenerTamanio() {
+        return cantidadNodos();
+    }
 }
