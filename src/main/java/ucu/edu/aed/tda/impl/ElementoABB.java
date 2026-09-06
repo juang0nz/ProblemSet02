@@ -297,4 +297,125 @@ public class ElementoABB<T> implements TDAElemento<T> {
     public int ObtenerTamanio() {
         return cantidadNodos();
     }
+    //ejercicio 11
+    public T menorClave() {
+        TDAElemento<T> actual = this;
+
+        while (actual.getHijoIzquierdo() != null) {
+            actual = actual.getHijoIzquierdo();
+        }
+
+        return actual.getDato();
+    }
+
+    public T mayorClave() {
+        TDAElemento<T> actual = this;
+
+        while (actual.getHijoDerecho() != null) {
+            actual = actual.getHijoDerecho();
+        }
+
+        return actual.getDato();
+    }
+
+    @Override
+    public T claveAnterior(Comparable<T> criterio) {
+        return claveAnteriorRec(this, criterio, null);
+    }
+
+    private T claveAnteriorRec(TDAElemento<T> nodo, Comparable<T> criterio, T anterior) {
+        if (nodo == null) {
+            return anterior;
+        }
+
+        int comparacion = criterio.compareTo(nodo.getDato());
+
+        if (comparacion < 0) {
+            return claveAnteriorRec(nodo.getHijoIzquierdo(), criterio, anterior);
+        }
+
+        if (comparacion > 0) {
+            return claveAnteriorRec(nodo.getHijoDerecho(), criterio, nodo.getDato());
+        }
+
+        if (nodo.getHijoIzquierdo() != null) {
+            return ((ElementoABB<T>) nodo.getHijoIzquierdo()).mayorClave();
+        }
+
+        return anterior;
+    }
+
+    @Override
+    public int cantidadNodosEnNivel(int nivel) {
+        if (nivel < 0) {
+            return 0;
+        }
+
+        if (nivel == 0) {
+            return 1;
+        }
+
+        int izquierda = 0;
+        int derecha = 0;
+
+        if (hijoIzquierdo != null) {
+            izquierda = hijoIzquierdo.cantidadNodosEnNivel(nivel - 1);
+        }
+
+        if (hijoDerecho != null) {
+            derecha = hijoDerecho.cantidadNodosEnNivel(nivel - 1);
+        }
+
+        return izquierda + derecha;
+    }
+
+    @Override
+    public void listarHojasConNivel(java.util.function.BiConsumer<T, Integer> consumidor, int nivel) {
+        if (consumidor == null) {
+            return;
+        }
+
+        if (hijoIzquierdo == null && hijoDerecho == null) {
+            consumidor.accept(dato, nivel);
+            return;
+        }
+
+        if (hijoIzquierdo != null) {
+            hijoIzquierdo.listarHojasConNivel(consumidor, nivel + 1);
+        }
+
+        if (hijoDerecho != null) {
+            hijoDerecho.listarHojasConNivel(consumidor, nivel + 1);
+        }
+    }
+
+    @Override
+    public boolean esArbolDeBusqueda(T minimo, T maximo) {
+        if (dato == null) {
+            return true;
+        }
+
+        Comparable<T> comparable = (Comparable<T>) dato;
+
+        if (minimo != null && comparable.compareTo(minimo) <= 0) {
+            return false;
+        }
+
+        if (maximo != null && comparable.compareTo(maximo) >= 0) {
+            return false;
+        }
+
+        boolean izquierdaValida = true;
+        boolean derechaValida = true;
+
+        if (hijoIzquierdo != null) {
+            izquierdaValida = hijoIzquierdo.esArbolDeBusqueda(minimo, dato);
+        }
+
+        if (hijoDerecho != null) {
+            derechaValida = hijoDerecho.esArbolDeBusqueda(dato, maximo);
+        }
+
+        return izquierdaValida && derechaValida;
+    }
 }

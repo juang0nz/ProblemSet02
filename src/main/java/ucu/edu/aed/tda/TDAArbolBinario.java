@@ -1,7 +1,7 @@
 package ucu.edu.aed.tda;
 
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-
 /**
  * Define un Tipo de Dato Abstracto (TDA) Árbol Binario genérico.
  *
@@ -122,4 +122,13 @@ public interface TDAArbolBinario<T> {
 
 
     int altura();
+
+    //agregamos los del ejercicio 11
+
+    int cantidadNodosEnNivel(int nivel);
+
+    void listarHojasConNivel(BiConsumer<T, Integer> consumidor);
+
+    boolean esArbolDeBusqueda();
+
 }

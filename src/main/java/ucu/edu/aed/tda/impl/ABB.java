@@ -3,6 +3,7 @@ package ucu.edu.aed.tda.impl;
 import java.util.function.Consumer;
 import ucu.edu.aed.tda.TDAArbolBinario;
 import ucu.edu.aed.tda.TDAElemento;
+import java.util.function.BiConsumer;
 
 public class ABB<T> implements TDAArbolBinario<T> {
 
@@ -139,5 +140,54 @@ public class ABB<T> implements TDAArbolBinario<T> {
     public int ObtenerTamanio() {
         return cantidadNodos();
     }
+    @Override
+    public int cantidadNodosEnNivel(int nivel) {
+        if (raiz == null) {
+            return 0;
+        }
 
+        return raiz.cantidadNodosEnNivel(nivel);
+    }
+
+    @Override
+    public void listarHojasConNivel(BiConsumer<T, Integer> consumidor) {
+        if (raiz != null && consumidor != null) {
+            raiz.listarHojasConNivel(consumidor, 0);
+        }
+    }
+
+    @Override
+    public boolean esArbolDeBusqueda() {
+        if (raiz == null) {
+            return true;
+        }
+
+        return raiz.esArbolDeBusqueda(null, null);
+    }
+
+    public T menorClave() {
+        if (raiz == null) {
+            return null;
+        }
+
+        return raiz.menorClave();
+    }
+
+
+    public T mayorClave() {
+        if (raiz == null) {
+            return null;
+        }
+
+        return raiz.mayorClave();
+    }
+
+
+    public T claveAnterior(Comparable<T> clave) {
+        if (raiz == null) {
+            return null;
+        }
+
+        return raiz.claveAnterior(clave);
+    }
 }

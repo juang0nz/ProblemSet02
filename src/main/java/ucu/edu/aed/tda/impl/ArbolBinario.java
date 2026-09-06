@@ -2,6 +2,7 @@ package ucu.edu.aed.tda.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import ucu.edu.aed.tda.TDAArbolBinario;
@@ -144,4 +145,28 @@ public class ArbolBinario <T> implements TDAArbolBinario <T>{
         }
         return ((ElementoAB<T>) raiz).enNivel(nivel);
     }
+
+    @Override
+    public int cantidadNodosEnNivel(int nivel) {
+        if (raiz == null) {
+            return 0;
+        }
+        return raiz.cantidadNodosEnNivel(nivel);
+    }
+
+    @Override
+    public void listarHojasConNivel(BiConsumer<T, Integer> consumidor) {
+        if (raiz != null && consumidor != null) {
+            raiz.listarHojasConNivel(consumidor, 0);
+        }
+    }
+
+    @Override
+    public boolean esArbolDeBusqueda() {
+        if (raiz == null) {
+            return true;
+        }
+        return raiz.esArbolDeBusqueda(null, null);
+    }
+
 }
