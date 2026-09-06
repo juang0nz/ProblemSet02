@@ -1,5 +1,6 @@
 package ucu.edu.aed.tda;
 
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 /**
@@ -121,4 +122,34 @@ public interface TDAElemento<T> {
      * si no se encuentra, retorna -1
      */
     int obtenerNivel(Comparable<T> criterioBusqueda);
+
+    /**
+     * Cuenta la cantidad de nodos que existen en el nivel indicado.
+     */
+    int cantidadNodosEnNivel(int nivel);
+
+    /**
+     * Recorrer las hojas del árbol y avisar a un consumidor con el dato y el nivel.
+     */
+    void listarHojasConNivel(BiConsumer<T, Integer> consumidor, int nivel);
+
+    /**
+     * Devuelve true si el subárbol cumple la propiedad de un ABB.
+     */
+    boolean esArbolDeBusqueda(T minimo, T maximo);
+
+    /**
+     * Devuelve la clave mínima dentro de este subárbol.
+     */
+    T menorClave();
+
+    /**
+     * Devuelve la clave máxima dentro de este subárbol.
+     */
+    T mayorClave();
+
+    /**
+     * Devuelve la clave inmediatamente anterior a la clave dada.
+     */
+    T claveAnterior(Comparable<T> criterio);
 }
