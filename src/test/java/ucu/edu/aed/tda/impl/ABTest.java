@@ -2,13 +2,14 @@ package ucu.edu.aed.tda.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import junit.framework.TestCase;
 import ucu.edu.aed.tda.TDAElemento;
 
 public class ABTest extends TestCase {
 
     public void testArbolVacio() {
-        ArbolBinario<Integer> arbol = new ArbolBinario<Integer>();
+        ArbolBinario<Integer> arbol = new ArbolBinario<>();
 
         assertEquals(0, arbol.altura());
         assertEquals(0, arbol.tamanio());
@@ -56,15 +57,15 @@ public class ABTest extends TestCase {
     }
 
     private ArbolBinario<Integer> crearArbolCompleto() {
-        ArbolBinario<Integer> arbol = new ArbolBinario<Integer>();
+        ArbolBinario<Integer> arbol = new ArbolBinario<>();
 
-        ElementoAB<Integer> raiz = new ElementoAB<Integer>(8);
-        ElementoAB<Integer> izquierdo = new ElementoAB<Integer>(3);
-        ElementoAB<Integer> derecho = new ElementoAB<Integer>(10);
-        ElementoAB<Integer> iIzq = new ElementoAB<Integer>(1);
-        ElementoAB<Integer> iDer = new ElementoAB<Integer>(6);
-        ElementoAB<Integer> dIzq = new ElementoAB<Integer>(9);
-        ElementoAB<Integer> dDer = new ElementoAB<Integer>(12);
+        ElementoAB<Integer> raiz = new ElementoAB<>(8);
+        ElementoAB<Integer> izquierdo = new ElementoAB<>(3);
+        ElementoAB<Integer> derecho = new ElementoAB<>(10);
+        ElementoAB<Integer> iIzq = new ElementoAB<>(1);
+        ElementoAB<Integer> iDer = new ElementoAB<>(6);
+        ElementoAB<Integer> dIzq = new ElementoAB<>(9);
+        ElementoAB<Integer> dDer = new ElementoAB<>(12);
 
         izquierdo.setHijoIzquierdo(iIzq);
         izquierdo.setHijoDerecho(iDer);
@@ -79,7 +80,7 @@ public class ABTest extends TestCase {
     }
 
     private List<Integer> obtenerDatos(List<TDAElemento<Integer>> nodos) {
-        List<Integer> resultado = new ArrayList<Integer>();
+        List<Integer> resultado = new ArrayList<>();
         for (TDAElemento<Integer> nodo : nodos) {
             resultado.add(nodo.getDato());
         }
