@@ -2,8 +2,8 @@ package ucu.edu.aed.tda.Ejercicios.Ejercicio12;
 
 public class Hechizo implements Comparable<Hechizo> {
 
-    private int Id;
-    private String nombre;
+    public int Id;
+    public String nombre;
 
     public Hechizo(int Id, String nombre) {
         this.Id = Id;

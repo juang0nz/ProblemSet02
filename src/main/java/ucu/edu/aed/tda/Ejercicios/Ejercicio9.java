@@ -1,4 +1,4 @@
-package main.java.ucu.edu.aed.tda.Ejercicios;
+package ucu.edu.aed.tda.Ejercicios;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
