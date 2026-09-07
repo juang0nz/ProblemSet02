@@ -1,0 +1,89 @@
+package main.java.ucu.edu.aed.tda.Ejercicios;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import ucu.edu.aed.tda.impl.AVL;
+
+public class Ejercicio13 {
+
+    static class Nave implements Comparable<Nave> {
+        int codigo;
+        String clase;
+        int combustible;
+
+        public Nave(int codigo, String clase, int combustible) {
+            this.codigo = codigo;
+            this.clase = clase;
+            this.combustible = combustible;
+        }
+
+        @Override
+        public int compareTo(Nave otra) {
+            return Integer.compare(this.codigo, otra.codigo);
+        }
+
+        @Override
+        public String toString() {
+            return codigo + "(" + clase + "," + combustible + ")";
+        }
+    }
+
+    static List<Integer> identificarExploradoras(AVL<Nave> arbol) {
+        List<Integer> resultado = new ArrayList<>();
+        arbol.preOrder(nave -> {
+            if (nave.clase.equals("Explorador")) {
+                resultado.add(nave.codigo);
+            }
+        });
+        return resultado;
+    }
+
+    static double combustiblePromedioExploradoras(AVL<Nave> arbol) {
+        int[] contador = {0};
+        int[] sumaCombustible = {0};
+
+        arbol.preOrder(nave -> {
+            if (nave.clase.equals("Explorador")) {
+                contador[0]++;
+                sumaCombustible[0] += nave.combustible;
+            }
+        });
+
+        if (contador[0] == 0) {
+            return 0;
+        }
+
+        return (double) sumaCombustible[0] / contador[0];
+    }
+
+    public static void main(String[] args) {
+
+        AVL<Nave> registro = new AVL<>();
+
+        registro.insertar(new Nave(10, "Explorador", 0));
+        registro.insertar(new Nave(20, "Destructor", 90));
+        registro.insertar(new Nave(30, "Medica", 100));
+        registro.insertar(new Nave(40, "Explorador", 50));
+        registro.insertar(new Nave(50, "Carguero", 20));
+        registro.insertar(new Nave(60, "Destructor", 28));
+        registro.insertar(new Nave(70, "Explorador", 14));
+        registro.insertar(new Nave(80, "Medica", 7));
+        registro.insertar(new Nave(90, "Carguero", 23));
+        registro.insertar(new Nave(100, "Explorador", 26));
+
+        // Verificacion: preorden y altura del arbol (Parte 1)
+        StringBuilder preorden = new StringBuilder();
+        registro.preOrder(n -> preorden.append(n.codigo).append(" "));
+        System.out.println("Preorden: " + preorden.toString().trim());
+        System.out.println("Altura del arbol: " + registro.altura());
+
+        // Parte 2: identificar naves exploradoras
+        List<Integer> exploradoras = identificarExploradoras(registro);
+        System.out.println("Naves exploradoras: " + exploradoras);
+
+        // Parte 3: combustible promedio de las exploradoras
+        double promedio = combustiblePromedioExploradoras(registro);
+        System.out.println("Combustible promedio exploradoras: " + promedio);
+    }
+}

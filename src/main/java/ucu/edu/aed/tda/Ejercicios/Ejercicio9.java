@@ -46,3 +46,12 @@ public class Ejercicio9 {
         }
     }
 }
+
+/*
+ * Recorridos calculados a mano (Parte 1) con las claves:
+ * 45, 20, 70, 10, 30, 60, 90, 5, 15, 25
+ *
+ * Preorden:  45 20 10 5 15 30 25 70 60 90
+ * Inorden:   5 10 15 20 25 30 45 60 70 90
+ * Postorden: 5 15 10 25 30 20 60 90 70 45
+ */
