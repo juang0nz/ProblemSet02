@@ -1,7 +1,7 @@
 package ucu.edu.aed.tda.impl;
 
-import java.util.ArrayList;
-import java.util.List;
+import ucu.edu.aed.tda.TDALista;
+import ucu.edu.aed.tda.impl.TDAListaConArregloImpl;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -132,16 +132,16 @@ public class ArbolBinario <T> implements TDAArbolBinario <T>{
         return cantidadNodosInternos();
     }
 
-    public List<TDAElemento<T>> completos() {
+    public TDALista<TDAElemento<T>> completos() {
         if (raiz == null) {
-            return new ArrayList<>();
+            return new TDAListaConArregloImpl<>();
         }
         return ((ElementoAB<T>) raiz).completos();
     }
 
-    public List<TDAElemento<T>> enNivel(int nivel) {
+    public TDALista<TDAElemento<T>> enNivel(int nivel) {
         if (raiz == null) {
-            return new ArrayList<>();
+            return new TDAListaConArregloImpl<>();
         }
         return ((ElementoAB<T>) raiz).enNivel(nivel);
     }

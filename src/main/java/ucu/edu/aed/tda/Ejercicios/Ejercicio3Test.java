@@ -1,11 +1,9 @@
 package ucu.edu.aed.tda.Ejercicios;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import ucu.edu.aed.tda.TDAArbolBinario;
+import ucu.edu.aed.tda.TDALista;
 import ucu.edu.aed.tda.impl.ABB;
+import ucu.edu.aed.tda.impl.TDAListaConArregloImpl;
 
 /**
  * Casos de prueba para la funcionalidad de eliminar del TDA árbol (ABB).
@@ -24,39 +22,39 @@ public class Ejercicio3Test {
         TDAArbolBinario<Integer> arbol = new ABB<>();
 
         // 1) Insertar elementos
-        List<Integer> entrada = Arrays.asList(12, 25, 14, 1, 33, 88, 45, 2, 7, 66, 5, 99);
-        for (Integer v : entrada) {
+        Integer[] entradaArr = {12, 25, 14, 1, 33, 88, 45, 2, 7, 66, 5, 99};
+        for (Integer v : entradaArr) {
             arbol.insertar(v);
         }
 
         // 2) Recorro el árbol en orden (inicial)
         System.out.println("Recorrido en orden (inicial):");
-        List<Integer> inicialInorder = recorridoInOrder(arbol);
+        TDALista<Integer> inicialInorder = recorridoInOrder(arbol);
         System.out.println(inicialInorder);
 
         // Esperado inicial (orden ascendente de los elementos insertados)
-        List<Integer> esperadoInicial = Arrays.asList(1, 2, 5, 7, 12, 14, 25, 33, 45, 66, 88, 99);
-        assertListEquals("In-order inicial", esperadoInicial, inicialInorder);
+        Integer[] esperadoInicial = {1, 2, 5, 7, 12, 14, 25, 33, 45, 66, 88, 99};
+        assertListaEquals("In-order inicial", esperadoInicial, inicialInorder);
 
         // 3) Eliminar en el orden indicado y verificar después de cada eliminación
-        List<DeletionCheck> pruebas = Arrays.asList(
-                new DeletionCheck(99, Arrays.asList(1, 2, 5, 7, 12, 14, 25, 33, 45, 66, 88)),
-                new DeletionCheck(15, Arrays.asList(1, 2, 5, 7, 12, 14, 25, 33, 45, 66, 88)), // 15 no existe
-                new DeletionCheck(2, Arrays.asList(1, 5, 7, 12, 14, 25, 33, 45, 66, 88)),
-                new DeletionCheck(12, Arrays.asList(1, 5, 7, 14, 25, 33, 45, 66, 88)),
-                new DeletionCheck(77, Arrays.asList(1, 5, 7, 14, 25, 33, 45, 66, 88)), // 77 no existe
-                new DeletionCheck(33, Arrays.asList(1, 5, 7, 14, 25, 45, 66, 88))
-        );
+        DeletionCheck[] pruebas = new DeletionCheck[] {
+                new DeletionCheck(99, new Integer[] {1, 2, 5, 7, 12, 14, 25, 33, 45, 66, 88}),
+                new DeletionCheck(15, new Integer[] {1, 2, 5, 7, 12, 14, 25, 33, 45, 66, 88}), // 15 no existe
+                new DeletionCheck(2, new Integer[] {1, 5, 7, 12, 14, 25, 33, 45, 66, 88}),
+                new DeletionCheck(12, new Integer[] {1, 5, 7, 14, 25, 33, 45, 66, 88}),
+                new DeletionCheck(77, new Integer[] {1, 5, 7, 14, 25, 33, 45, 66, 88}), // 77 no existe
+                new DeletionCheck(33, new Integer[] {1, 5, 7, 14, 25, 45, 66, 88})
+        };
 
         for (DeletionCheck dc : pruebas) {
             boolean eliminado = arbol.eliminar(dc.clave);
             System.out.println("\nEliminando clave: " + dc.clave + "  -> eliminado? " + eliminado);
 
-            List<Integer> actualInorder = recorridoInOrder(arbol);
+            TDALista<Integer> actualInorder = recorridoInOrder(arbol);
             System.out.println("In-order actual: " + actualInorder);
-            System.out.println("In-order esperado: " + dc.esperadoInorder);
+            System.out.println("In-order esperado: " + java.util.Arrays.toString(dc.esperadoInorder));
 
-            assertListEquals("Comprobación tras eliminar " + dc.clave, dc.esperadoInorder, actualInorder);
+            assertListaEquals("Comprobación tras eliminar " + dc.clave, dc.esperadoInorder, actualInorder);
         }
 
         // 4) Emitir recorridos inorden, preorden y postorden al final
@@ -74,50 +72,50 @@ public class Ejercicio3Test {
     }
 
     // Helper: recolecta el recorrido in-order en una lista
-    private static List<Integer> recorridoInOrder(TDAArbolBinario<Integer> arbol) {
-        List<Integer> lista = new ArrayList<>();
-        arbol.inOrder(lista::add);
+    private static TDALista<Integer> recorridoInOrder(TDAArbolBinario<Integer> arbol) {
+        TDALista<Integer> lista = new TDAListaConArregloImpl<>();
+        arbol.inOrder(lista::agregar);
         return lista;
     }
 
     // Helper: recolecta el recorrido pre-order en una lista
-    private static List<Integer> recorridoPreOrder(TDAArbolBinario<Integer> arbol) {
-        List<Integer> lista = new ArrayList<>();
-        arbol.preOrder(lista::add);
+    private static TDALista<Integer> recorridoPreOrder(TDAArbolBinario<Integer> arbol) {
+        TDALista<Integer> lista = new TDAListaConArregloImpl<>();
+        arbol.preOrder(lista::agregar);
         return lista;
     }
 
     // Helper: recolecta el recorrido post-order en una lista
-    private static List<Integer> recorridoPostOrder(TDAArbolBinario<Integer> arbol) {
-        List<Integer> lista = new ArrayList<>();
-        arbol.postOrder(lista::add);
+    private static TDALista<Integer> recorridoPostOrder(TDAArbolBinario<Integer> arbol) {
+        TDALista<Integer> lista = new TDAListaConArregloImpl<>();
+        arbol.postOrder(lista::agregar);
         return lista;
     }
 
-    private static void assertListEquals(String contexto, List<Integer> esperado, List<Integer> actual) {
+    private static void assertListaEquals(String contexto, Integer[] esperado, TDALista<Integer> actual) {
         if (esperado == null && actual == null) {
             return;
         }
         if (esperado == null || actual == null) {
-            throw new AssertionError(contexto + ": uno de los listados es null. Esperado=" + esperado + ", actual=" + actual);
+            throw new AssertionError(contexto + ": uno de los listados es null. Esperado=" + java.util.Arrays.toString(esperado) + ", actual=" + actual);
         }
-        if (esperado.size() != actual.size()) {
-            throw new AssertionError(contexto + ": tamaños distintos. Esperado=" + esperado.size() + ", actual=" + actual.size()
-                    + ".\nEsperado: " + esperado + "\nActual: " + actual);
+        if (esperado.length != actual.tamanio()) {
+            throw new AssertionError(contexto + ": tamaños distintos. Esperado=" + esperado.length + ", actual=" + actual.tamanio()
+                    + ".\nEsperado: " + java.util.Arrays.toString(esperado) + "\nActual: " + actual);
         }
-        for (int i = 0; i < esperado.size(); i++) {
-            if (!esperado.get(i).equals(actual.get(i))) {
-                throw new AssertionError(contexto + ": diferencia en posición " + i + ". Esperado=" + esperado.get(i)
-                        + ", actual=" + actual.get(i) + ".\nEsperado: " + esperado + "\nActual: " + actual);
+        for (int i = 0; i < esperado.length; i++) {
+            if (!esperado[i].equals(actual.obtener(i))) {
+                throw new AssertionError(contexto + ": diferencia en posición " + i + ". Esperado=" + esperado[i]
+                        + ", actual=" + actual.obtener(i) + ".\nEsperado: " + java.util.Arrays.toString(esperado) + "\nActual: " + actual);
             }
         }
     }
 
     private static class DeletionCheck {
         final Integer clave;
-        final List<Integer> esperadoInorder;
+        final Integer[] esperadoInorder;
 
-        DeletionCheck(Integer clave, List<Integer> esperadoInorder) {
+        DeletionCheck(Integer clave, Integer[] esperadoInorder) {
             this.clave = clave;
             this.esperadoInorder = esperadoInorder;
         }

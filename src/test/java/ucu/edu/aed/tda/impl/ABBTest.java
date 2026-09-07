@@ -1,8 +1,8 @@
 package ucu.edu.aed.tda.impl;
 
-import java.util.ArrayList;
+import ucu.edu.aed.tda.TDALista;
+import ucu.edu.aed.tda.impl.TDAListaConArregloImpl;
 import java.util.Arrays;
-import java.util.List;
 import java.util.function.Consumer;
 
 import junit.framework.TestCase;
@@ -39,9 +39,26 @@ public class ABBTest extends TestCase {
     public void testRecorridos() {
         ABB<Integer> arbol = crearArbol();
 
-        assertEquals(Arrays.asList(1, 3, 6, 8, 10, 14, 16), recorrerInOrder(arbol));
-        assertEquals(Arrays.asList(8, 3, 1, 6, 14, 10, 16), recorrerPreOrder(arbol));
-        assertEquals(Arrays.asList(1, 6, 3, 10, 16, 14, 8), recorrerPostOrder(arbol));
+        Integer[] expectedIn = {1, 3, 6, 8, 10, 14, 16};
+        TDALista<Integer> in = recorrerInOrder(arbol);
+        assertEquals(expectedIn.length, in.tamanio());
+        for (int i = 0; i < expectedIn.length; i++) {
+            assertEquals(expectedIn[i], in.obtener(i));
+        }
+
+        Integer[] expectedPre = {8, 3, 1, 6, 14, 10, 16};
+        TDALista<Integer> pre = recorrerPreOrder(arbol);
+        assertEquals(expectedPre.length, pre.tamanio());
+        for (int i = 0; i < expectedPre.length; i++) {
+            assertEquals(expectedPre[i], pre.obtener(i));
+        }
+
+        Integer[] expectedPost = {1, 6, 3, 10, 16, 14, 8};
+        TDALista<Integer> post = recorrerPostOrder(arbol);
+        assertEquals(expectedPost.length, post.tamanio());
+        for (int i = 0; i < expectedPost.length; i++) {
+            assertEquals(expectedPost[i], post.obtener(i));
+        }
     }
 
     public void testMetricasYNivel() {
@@ -62,7 +79,12 @@ public class ABBTest extends TestCase {
 
         assertTrue(arbol.eliminar(1));
         assertNull(arbol.buscar(1));
-        assertEquals(Arrays.asList(3, 6, 8, 10, 14, 16), recorrerInOrder(arbol));
+        Integer[] expectedAfterDelete = {3, 6, 8, 10, 14, 16};
+        TDALista<Integer> actualAfterDelete = recorrerInOrder(arbol);
+        assertEquals(expectedAfterDelete.length, actualAfterDelete.tamanio());
+        for (int i = 0; i < expectedAfterDelete.length; i++) {
+            assertEquals(expectedAfterDelete[i], actualAfterDelete.obtener(i));
+        }
         assertFalse(arbol.eliminar(1));
     }
 
@@ -81,7 +103,12 @@ public class ABBTest extends TestCase {
 
         assertTrue(arbol.eliminar(3));
         assertNull(arbol.buscar(3));
-        assertEquals(Arrays.asList(1, 6, 8, 10, 14, 16), recorrerInOrder(arbol));
+        Integer[] expectedAfterDelete = {1, 6, 8, 10, 14, 16};
+        TDALista<Integer> actualAfterDelete = recorrerInOrder(arbol);
+        assertEquals(expectedAfterDelete.length, actualAfterDelete.tamanio());
+        for (int i = 0; i < expectedAfterDelete.length; i++) {
+            assertEquals(expectedAfterDelete[i], actualAfterDelete.obtener(i));
+        }
         assertEquals(6, arbol.cantidadNodos());
     }
 
@@ -91,7 +118,12 @@ public class ABBTest extends TestCase {
         assertTrue(arbol.eliminar(8));
         assertNull(arbol.buscar(8));
         assertEquals(Integer.valueOf(6), arbol.obtenerRaiz().getDato());
-        assertEquals(Arrays.asList(1, 3, 6, 10, 14, 16), recorrerInOrder(arbol));
+        Integer[] expectedAfterDeleteRoot = {1, 3, 6, 10, 14, 16};
+        TDALista<Integer> actualAfterDeleteRoot = recorrerInOrder(arbol);
+        assertEquals(expectedAfterDeleteRoot.length, actualAfterDeleteRoot.tamanio());
+        for (int i = 0; i < expectedAfterDeleteRoot.length; i++) {
+            assertEquals(expectedAfterDeleteRoot[i], actualAfterDeleteRoot.obtener(i));
+        }
     }
 
     private ABB<Integer> crearArbol() {
@@ -104,34 +136,34 @@ public class ABBTest extends TestCase {
         return arbol;
     }
 
-    private List<Integer> recorrerInOrder(ABB<Integer> arbol) {
-        final List<Integer> resultado = new ArrayList<Integer>();
+    private TDALista<Integer> recorrerInOrder(ABB<Integer> arbol) {
+        final TDALista<Integer> resultado = new TDAListaConArregloImpl<>();
         arbol.inOrder(new Consumer<Integer>() {
             @Override
             public void accept(Integer elemento) {
-                resultado.add(elemento);
+                resultado.agregar(elemento);
             }
         });
         return resultado;
     }
 
-    private List<Integer> recorrerPreOrder(ABB<Integer> arbol) {
-        final List<Integer> resultado = new ArrayList<Integer>();
+    private TDALista<Integer> recorrerPreOrder(ABB<Integer> arbol) {
+        final TDALista<Integer> resultado = new TDAListaConArregloImpl<>();
         arbol.preOrder(new Consumer<Integer>() {
             @Override
             public void accept(Integer elemento) {
-                resultado.add(elemento);
+                resultado.agregar(elemento);
             }
         });
         return resultado;
     }
 
-    private List<Integer> recorrerPostOrder(ABB<Integer> arbol) {
-        final List<Integer> resultado = new ArrayList<Integer>();
+    private TDALista<Integer> recorrerPostOrder(ABB<Integer> arbol) {
+        final TDALista<Integer> resultado = new TDAListaConArregloImpl<>();
         arbol.postOrder(new Consumer<Integer>() {
             @Override
             public void accept(Integer elemento) {
-                resultado.add(elemento);
+                resultado.agregar(elemento);
             }
         });
         return resultado;

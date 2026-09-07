@@ -1,6 +1,7 @@
 package ucu.edu.aed.tda.Ejercicios.Ejercicio12;
 
-import java.util.ArrayList;
+import ucu.edu.aed.tda.TDALista;
+import ucu.edu.aed.tda.impl.TDAListaConArregloImpl;
 
 import ucu.edu.aed.tda.TDAArbolBinario;
 import ucu.edu.aed.tda.impl.ABB;
@@ -17,24 +18,24 @@ public class Grimorio {
         arbol.insertar(hechizo);
     }
 
-public ArrayList<Hechizo> prohibidos() {
+public TDALista<Hechizo> prohibidos() {
 
-    ArrayList<Hechizo> prohibidos = new ArrayList<>();
+    TDALista<Hechizo> prohibidos = new TDAListaConArregloImpl<>();
     // Recorro el árbol en orden y agrego los hechizos con ID impar a la lista de prohibidos.
     arbol.inOrder(hechizo -> {
         if (hechizo.getId() % 2 != 0) {
-            prohibidos.add(hechizo);
+            prohibidos.agregar(hechizo);
         }
     });
     return prohibidos;
 }
 //recorro el arbol y genero la lista separada con " - " para formar el cántico secreto
     public String cantoSecreto() {
-        ArrayList<Hechizo> prohibidos = prohibidos();
+        TDALista<Hechizo> prohibidos = prohibidos();
         StringBuilder canto = new StringBuilder();
-        for (int i = 0; i < prohibidos.size(); i++) {
-            canto.append(prohibidos.get(i).getNombre());
-            if (i < prohibidos.size() - 1) {
+        for (int i = 0; i < prohibidos.tamanio(); i++) {
+            canto.append(prohibidos.obtener(i).getNombre());
+            if (i < prohibidos.tamanio() - 1) {
                 canto.append(" - ");
             }
         }

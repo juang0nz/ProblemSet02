@@ -1,7 +1,7 @@
 package ucu.edu.aed.tda.impl;
 
-import java.util.ArrayList;
-import java.util.List;
+import ucu.edu.aed.tda.TDALista;
+import ucu.edu.aed.tda.impl.TDAListaConArregloImpl;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -111,38 +111,38 @@ public class ElementoAB <T> implements TDAElemento<T> {
         return cantidadNodosInternos();
     }
 
-    public List<TDAElemento<T>> completos() {
-        List<TDAElemento<T>> resultado = new ArrayList<>();
+    public TDALista<TDAElemento<T>> completos() {
+        TDALista<TDAElemento<T>> resultado = new TDAListaConArregloImpl<>();
         completosRecursivo(this, resultado);
         return resultado;
     }
 // Métodos auxiliares para obtener los nodos completos y los nodos en un nivel específico.
-    private void completosRecursivo(TDAElemento<T> nodo, List<TDAElemento<T>> resultado) {
+    private void completosRecursivo(TDAElemento<T> nodo, TDALista<TDAElemento<T>> resultado) {
         if (nodo == null) {
             return;
         }
 
         if (nodo.getHijoIzquierdo() != null && nodo.getHijoDerecho() != null) {
-            resultado.add(nodo);
+            resultado.agregar(nodo);
         }
 // completosRecursivo es un método auxiliar que recorre el árbol en busca de nodos completos (con ambos hijos).
         completosRecursivo(nodo.getHijoIzquierdo(), resultado);
         completosRecursivo(nodo.getHijoDerecho(), resultado);
     }
 // enNivelRecursivo es un método auxiliar que recorre el árbol en busca de nodos en un nivel específico.
-    public List<TDAElemento<T>> enNivel(int nivel) {
-        List<TDAElemento<T>> resultado = new ArrayList<>();
+    public TDALista<TDAElemento<T>> enNivel(int nivel) {
+        TDALista<TDAElemento<T>> resultado = new TDAListaConArregloImpl<>();
         enNivelRecursivo(this, nivel, resultado);
         return resultado;
     }
 // enNivel es un método que devuelve una lista de nodos en un nivel específico del árbol.
-    private void enNivelRecursivo(TDAElemento<T> nodo, int nivel, List<TDAElemento<T>> resultado) {
+    private void enNivelRecursivo(TDAElemento<T> nodo, int nivel, TDALista<TDAElemento<T>> resultado) {
         if (nodo == null) {
             return;
         }
 
         if (nivel == 0) {
-            resultado.add(nodo);
+            resultado.agregar(nodo);
             return;
         }
 

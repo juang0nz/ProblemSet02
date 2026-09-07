@@ -1,6 +1,7 @@
 package ucu.edu.aed.tda.Ejercicios.Ejercicio12;
 
-import java.util.ArrayList;
+import ucu.edu.aed.tda.TDALista;
+import ucu.edu.aed.tda.impl.TDAListaConArregloImpl;
 
 public class Principal {
     public static void main(String[] args) {
@@ -20,10 +21,11 @@ public class Principal {
         grimorio.insertar(new Hechizo(88, "Curse"));
 
         // consultar prohibidos
-        ArrayList<Hechizo> prohibidos = grimorio.prohibidos();
+        TDALista<Hechizo> prohibidos = grimorio.prohibidos();
         // imprimo los hechizos para comprobar:
         System.out.println("Hechizos prohibidos:");
-        for (Hechizo hechizo : prohibidos) {
+        for (int i = 0; i < prohibidos.tamanio(); i++) {
+            Hechizo hechizo = prohibidos.obtener(i);
             System.out.println(hechizo.getNombre() + " (ID: " + hechizo.getId() + ")");
         }
 

@@ -1,9 +1,8 @@
-package main.java.ucu.edu.aed.tda.Ejercicios;
+package ucu.edu.aed.tda.Ejercicios;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import ucu.edu.aed.tda.TDALista;
 import ucu.edu.aed.tda.impl.AVL;
+import ucu.edu.aed.tda.impl.TDAListaConArregloImpl;
 
 public class Ejercicio13 {
 
@@ -29,11 +28,11 @@ public class Ejercicio13 {
         }
     }
 
-    static List<Integer> identificarExploradoras(AVL<Nave> arbol) {
-        List<Integer> resultado = new ArrayList<>();
+    static TDALista<Integer> identificarExploradoras(AVL<Nave> arbol) {
+        TDALista<Integer> resultado = new TDAListaConArregloImpl<>();
         arbol.preOrder(nave -> {
             if (nave.clase.equals("Explorador")) {
-                resultado.add(nave.codigo);
+                resultado.agregar(nave.codigo);
             }
         });
         return resultado;
@@ -79,7 +78,7 @@ public class Ejercicio13 {
         System.out.println("Altura del arbol: " + registro.altura());
 
         // Parte 2: identificar naves exploradoras
-        List<Integer> exploradoras = identificarExploradoras(registro);
+        TDALista<Integer> exploradoras = identificarExploradoras(registro);
         System.out.println("Naves exploradoras: " + exploradoras);
 
         // Parte 3: combustible promedio de las exploradoras

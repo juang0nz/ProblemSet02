@@ -1,8 +1,8 @@
 package ucu.edu.aed.tda.impl;
 
-import java.util.ArrayList;
+import ucu.edu.aed.tda.TDALista;
+import ucu.edu.aed.tda.impl.TDAListaConArregloImpl;
 import java.util.Arrays;
-import java.util.List;
 import junit.framework.TestCase;
 import ucu.edu.aed.tda.TDAElemento;
 
@@ -69,15 +69,19 @@ public class AVLTest extends TestCase {
             assertTrue(arbol.insertar(valor));
         }
 
-        List<Integer> inOrder = new ArrayList<Integer>();
+        TDALista<Integer> inOrder = new TDAListaConArregloImpl<>();
         arbol.inOrder(new java.util.function.Consumer<Integer>() {
             @Override
             public void accept(Integer elemento) {
-                inOrder.add(elemento);
+                inOrder.agregar(elemento);
             }
         });
 
-        assertEquals(Arrays.asList(1, 5, 10, 13, 15, 16, 17, 20), inOrder);
+        Integer[] expected = {1, 5, 10, 13, 15, 16, 17, 20};
+        assertEquals(expected.length, inOrder.tamanio());
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals(expected[i], inOrder.obtener(i));
+        }
         assertAVLBalanceado(arbol.obtenerRaiz());
     }
 

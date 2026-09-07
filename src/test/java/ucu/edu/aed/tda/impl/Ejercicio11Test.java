@@ -1,7 +1,7 @@
 package ucu.edu.aed.tda.impl;
 
-import java.util.ArrayList;
-import java.util.List;
+import ucu.edu.aed.tda.TDALista;
+import ucu.edu.aed.tda.impl.TDAListaConArregloImpl;
 import java.util.function.BiConsumer;
 
 import junit.framework.TestCase;
@@ -27,39 +27,39 @@ public class Ejercicio11Test extends TestCase {
         ABB<Integer> arbolUnico = new ABB<Integer>();
         arbolUnico.insertar(10);
 
-        final List<String> hojasVacias = new ArrayList<String>();
-        final List<String> hojas = new ArrayList<String>();
-        final List<String> hojasUnicas = new ArrayList<String>();
+        final TDALista<String> hojasVacias = new TDAListaConArregloImpl<>();
+        final TDALista<String> hojas = new TDAListaConArregloImpl<>();
+        final TDALista<String> hojasUnicas = new TDAListaConArregloImpl<>();
 
         arbolVacio.listarHojasConNivel(new BiConsumer<Integer, Integer>() {
             @Override
             public void accept(Integer dato, Integer nivel) {
-                hojasVacias.add(dato + ":" + nivel);
+                hojasVacias.agregar(dato + ":" + nivel);
             }
         });
 
         arbol.listarHojasConNivel(new BiConsumer<Integer, Integer>() {
             @Override
             public void accept(Integer dato, Integer nivel) {
-                hojas.add(dato + ":" + nivel);
+                hojas.agregar(dato + ":" + nivel);
             }
         });
 
         arbolUnico.listarHojasConNivel(new BiConsumer<Integer, Integer>() {
             @Override
             public void accept(Integer dato, Integer nivel) {
-                hojasUnicas.add(dato + ":" + nivel);
+                hojasUnicas.agregar(dato + ":" + nivel);
             }
         });
 
-        assertTrue(hojasVacias.isEmpty());
-        assertEquals(4, hojas.size());
-        assertTrue(hojas.contains("1:2"));
-        assertTrue(hojas.contains("6:2"));
-        assertTrue(hojas.contains("9:2"));
-        assertTrue(hojas.contains("12:2"));
-        assertEquals(1, hojasUnicas.size());
-        assertTrue(hojasUnicas.contains("10:0"));
+        assertTrue(hojasVacias.esVacio());
+        assertEquals(4, hojas.tamanio());
+        assertTrue(hojas.contiene("1:2"));
+        assertTrue(hojas.contiene("6:2"));
+        assertTrue(hojas.contiene("9:2"));
+        assertTrue(hojas.contiene("12:2"));
+        assertEquals(1, hojasUnicas.tamanio());
+        assertTrue(hojasUnicas.contiene("10:0"));
     }
 
     // Caso normal + casos inválidos: árbol válido, vacío, de un solo nodo y con violaciones profundas.
