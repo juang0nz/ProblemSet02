@@ -118,6 +118,11 @@ public interface TDAElemento<T> {
     int altura();
 
     /**
+     * Actualiza la altura del nodo en base a las alturas de sus hijos.
+     */
+    void actualizarAltura();
+
+    /**
      * retornar el nivel relativo del nodo que coincide con el criterio de búsqueda
      * si no se encuentra, retorna -1
      */

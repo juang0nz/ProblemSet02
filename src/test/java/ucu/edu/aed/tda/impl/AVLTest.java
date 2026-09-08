@@ -90,14 +90,15 @@ public class AVLTest extends TestCase {
             return;
         }
 
-        assertTrue(nodo instanceof ElementoAVL);
-        ElementoAVL<Integer> elemento = (ElementoAVL<Integer>) nodo;
+        // Comprobar factor de balance a partir de las alturas de los hijos
+        int alturaIzq = (nodo.getHijoIzquierdo() != null) ? nodo.getHijoIzquierdo().altura() : 0;
+        int alturaDer = (nodo.getHijoDerecho() != null) ? nodo.getHijoDerecho().altura() : 0;
+        int factor = alturaIzq - alturaDer;
 
-        int factor = elemento.factorBalance();
-        assertTrue("Factor de balance fuera de rango en nodo " + elemento.getDato() + ": " + factor,
+        assertTrue("Factor de balance fuera de rango en nodo " + nodo.getDato() + ": " + factor,
                 factor >= -1 && factor <= 1);
 
-        assertAVLBalanceado(elemento.getHijoIzquierdo());
-        assertAVLBalanceado(elemento.getHijoDerecho());
+        assertAVLBalanceado(nodo.getHijoIzquierdo());
+        assertAVLBalanceado(nodo.getHijoDerecho());
     }
 }

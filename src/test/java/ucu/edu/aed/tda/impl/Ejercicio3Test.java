@@ -1,9 +1,7 @@
-package ucu.edu.aed.tda.Ejercicios;
+package ucu.edu.aed.tda.impl;
 
 import ucu.edu.aed.tda.TDAArbolBinario;
 import ucu.edu.aed.tda.TDALista;
-import ucu.edu.aed.tda.impl.ABB;
-import ucu.edu.aed.tda.impl.TDAListaConArregloImpl;
 
 /**
  * Casos de prueba para la funcionalidad de eliminar del TDA árbol (ABB).

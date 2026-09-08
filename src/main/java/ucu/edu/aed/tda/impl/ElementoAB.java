@@ -41,6 +41,12 @@ public class ElementoAB <T> implements TDAElemento<T> {
     }
 
     @Override
+    public void actualizarAltura() {
+        // ElementoAB no mantiene un campo de altura mutable; su altura se calcula recursivamente en altura().
+        // Este método existe para cumplir la interfaz TDAElemento. No es necesario hacer nada aquí.
+    }
+
+    @Override
     public int cantidadNodos() {
 
         int izquierda = 0;

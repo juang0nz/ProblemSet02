@@ -7,7 +7,7 @@ import java.util.function.BiConsumer;
 
 public class ABB<T> implements TDAArbolBinario<T> {
 
-    public TDAElemento<T> raiz;
+    protected TDAElemento<T> raiz;
 
     public ABB() {
         this.raiz = null;

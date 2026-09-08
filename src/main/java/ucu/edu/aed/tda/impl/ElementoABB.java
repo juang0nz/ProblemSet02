@@ -9,11 +9,13 @@ public class ElementoABB<T> implements TDAElemento<T> {
     protected T dato;
     protected TDAElemento<T> hijoIzquierdo;
     protected TDAElemento<T> hijoDerecho;
+    private int altura;
 
     public ElementoABB(T dato) {
         this.dato = dato;
         this.hijoIzquierdo = null;
         this.hijoDerecho = null;
+        this.altura = 1; // Inicializamos la altura del nodo como 1
     }
     
     @Override
@@ -46,6 +48,11 @@ public class ElementoABB<T> implements TDAElemento<T> {
         this.dato = dato;
     }
 
+
+    @Override
+    public int altura() {
+        return altura;
+    }
     /**
      * Busca un nodo por un criterio de búsqueda.
      * Si no se encuentra, retorna nulo.
@@ -150,17 +157,29 @@ public class ElementoABB<T> implements TDAElemento<T> {
         } else if (comparacion < 0) {
             if (hijoIzquierdo == null) {
                 hijoIzquierdo = new ElementoABB<>(nuevoDato);
+                // actualizar altura al insertar nuevo hijo
+                actualizarAltura();
                 return true;
             } else {
-                return hijoIzquierdo.insertar(nuevoDato);
+                boolean res = hijoIzquierdo.insertar(nuevoDato);
+                if (res) {
+                    actualizarAltura();
+                }
+                return res;
             }
             // Fin del caso izquierdo
         } else {
             if (hijoDerecho == null) {
                 hijoDerecho = new ElementoABB<>(nuevoDato);
+                // actualizar altura al insertar nuevo hijo
+                actualizarAltura();
                 return true;
             } else {
-                return hijoDerecho.insertar(nuevoDato);
+                boolean res = hijoDerecho.insertar(nuevoDato);
+                if (res) {
+                    actualizarAltura();
+                }
+                return res;
             }
             // Fin del caso derecho
         }
@@ -264,15 +283,12 @@ public class ElementoABB<T> implements TDAElemento<T> {
         return contador;
     }
 
-    @Override
-    /**
-     * retorna la altura de este nodo
-     */
-    public int altura() {
-        // Calcular la altura de los subárboles izquierdo y derecho
-        int alturaIzquierda = (hijoIzquierdo != null) ? hijoIzquierdo.altura() : 0;
-        int alturaDerecha = (hijoDerecho != null) ? hijoDerecho.altura() : 0;
-        return 1 + Math.max(alturaIzquierda, alturaDerecha); // este es el que suma la vuelta las dos alturas.
+
+    public void actualizarAltura() {
+    int alturaIzquierda = (hijoIzquierdo != null) ? hijoIzquierdo.altura() : 0;
+    int alturaDerecha = (hijoDerecho != null) ? hijoDerecho.altura() : 0;
+
+    this.altura = 1 + Math.max(alturaIzquierda, alturaDerecha);
     }
 
     @Override
