@@ -138,11 +138,8 @@ public class ABBTest extends TestCase {
 
     private TDALista<Integer> recorrerInOrder(ABB<Integer> arbol) {
         final TDALista<Integer> resultado = new TDAListaConArregloImpl<>();
-        arbol.inOrder(new Consumer<Integer>() {
-            @Override
-            public void accept(Integer elemento) {
-                resultado.agregar(elemento);
-            }
+        arbol.inOrder(elemento -> {
+            resultado.agregar(elemento);
         });
         return resultado;
     }

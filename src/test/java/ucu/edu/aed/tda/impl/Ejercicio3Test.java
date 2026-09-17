@@ -72,7 +72,7 @@ public class Ejercicio3Test {
     // Helper: recolecta el recorrido in-order en una lista
     private static TDALista<Integer> recorridoInOrder(TDAArbolBinario<Integer> arbol) {
         TDALista<Integer> lista = new TDAListaConArregloImpl<>();
-        arbol.inOrder(lista::agregar);
+        arbol.inOrder(null);
         return lista;
     }
 

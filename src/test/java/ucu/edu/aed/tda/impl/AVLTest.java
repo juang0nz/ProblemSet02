@@ -70,12 +70,7 @@ public class AVLTest extends TestCase {
         }
 
         TDALista<Integer> inOrder = new TDAListaConArregloImpl<>();
-        arbol.inOrder(new java.util.function.Consumer<Integer>() {
-            @Override
-            public void accept(Integer elemento) {
-                inOrder.agregar(elemento);
-            }
-        });
+        arbol.inOrder(inOrder::agregar);
 
         Integer[] expected = {1, 5, 10, 13, 15, 16, 17, 20};
         assertEquals(expected.length, inOrder.tamanio());

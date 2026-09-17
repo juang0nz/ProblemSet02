@@ -25,7 +25,7 @@ public class Ejercicio7 {
 
         // sustituir la variable "x" por un valor dado
         sustituirVariable(elemento, "x", "5");
-        arbol.inOrder(System.out::println);
+        arbol.inOrder(null);
         System.out.println("Resultado de la evaluación: " + evaluar(elemento));
 
         // PARTE 2
@@ -62,7 +62,7 @@ public class Ejercicio7 {
         posicion = 0; // reiniciar la posición antes de crear el árbol
         arbol2.setRaiz(crearArbol(elementos));
         System.out.println("Árbol creado a partir de la expresión prefija:"); 
-        arbol2.inOrder(System.out::println); //imprime el árbol en orden
+        arbol2.inOrder(null); //imprime el árbol en orden
 
     }
 
